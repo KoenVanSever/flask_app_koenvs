@@ -1,0 +1,117 @@
+{% extends 'base.html' %}
+
+{% block meta %}
+
+{% endblock %}
+
+{% block title %}
+Params - Home
+{% endblock %}
+
+{% block cont_main %}
+{% with messages = get_flashed_messages(with_categories = true) %}
+{% if messages %}
+{% for message in messages %}
+{% if message.0 == "warning" %}
+<div class="row my-2 bg-warning message-popup py-1">
+    <b>{{ message.1 }}</b>
+</div> <!-- row -->
+{% endif %}
+<!-- warning if -->
+{% if message.0 == "error" %}
+<div class="row my-2 bg-danger message-popup py-1">
+    <b>{{ message.1 }}</b>
+</div> <!-- row -->
+{% endif %}
+<!-- error if -->
+{% endfor %}
+<!-- message loop -->
+{% endif %}
+<!-- messages if -->
+{% endwith %}
+<!-- with messages -->
+
+<div class="row my-2">
+    <div class="col-6 message-popup py-1" id="file-submit">
+        <form method="post" action="{{ url_for('params.index') }}" enctype="multipart/form-data">
+            {{ upload_form.csrf_token }}
+            {{ upload_form.files.label }}
+            {{ upload_form.files }}
+            <input class="float-end" type="submit" name="submit" value="Submit">
+        </form>
+    </div> <!-- col -->
+</div> <!-- row -->
+
+<div class="row my-2">
+    <div class="col">
+        <table class="table table-sm table-bordered">
+            <tr class="tr-header">
+                <th rowspan="2">CSV name</th>
+                <th>Current</th> <!-- byte_137/138-->
+                <th>Forw Volt</th> <!-- byte_139 or byte_210/211-->
+                <th># of LEDs</th> <!-- byte_145 -->
+                <th>LED Rev</th> <!-- byte_146 -->
+                <th>DC 1.4</th> <!-- byte_147_148 -->
+                <th>DC 2.8</th> <!-- byte_149_150 -->
+                <th>DC 3.4</th> <!-- byte_151_152 -->
+                <th>DC 4.1</th> <!-- byte_153_154 -->
+                <th>DC 4.8</th> <!-- byte_155_156 -->
+                <th>DC 5.2</th> <!-- byte_157_158 -->
+                <th>DC 5.5</th> <!-- byte_159_160 -->
+                <th>DC 6.6</th> <!-- byte_161_162 -->
+                <th>Flux</th> <!-- bytes... -->
+                <th>Lin Dim</th> <!-- byte_202_203 -->
+                <th>Dim Freq</th> <!-- byte_204_205 -->
+                <th>Dual Mon</th> <!-- byte_215 -->
+                <th rowspan="2">Detail View</th>
+            </tr>
+            <tr class="tr-header">
+                <th>(mA)</th>
+                <th>(V)</th>
+                <th>/</th>
+                <th>/</th>
+                <th>(mA)</th>
+                <th>(mA)</th>
+                <th>(mA)</th>
+                <th>(mA)</th>
+                <th>(mA)</th>
+                <th>(mA)</th>
+                <th>(mA)</th>
+                <th>(mA)</th>
+                <th>(%)</th>
+                <th>(Hz)</th>
+                <th>(mA)</th>
+                <th>/</th>
+            </tr>
+            {% for param in params %}
+            <tr class="table-hover tr-data">
+                <td style="text-align: left;">{{ param.csv_name }}</td>
+                <td>{{ param.byte_137_138 }}</td>
+                {% if param.byte_139 == 255 %}
+                <td>{{ param.byte_210_211 / 100 }}</td>
+                {% else %}
+                <td>{{ param.byte_139 / 10 }}</td>
+                {% endif %}
+                <td>{{ param.byte_145 }}</td>
+                <td>{{ param.byte_146 }}</td>
+                <td>{{ param.byte_147_148 }}</td>
+                <td>{{ param.byte_149_150 }}</td>
+                <td>{{ param.byte_151_152 }}</td>
+                <td>{{ param.byte_153_154 }}</td>
+                <td>{{ param.byte_155_156 }}</td>
+                <td>{{ param.byte_157_158 }}</td>
+                <td>{{ param.byte_159_160 }}</td>
+                <td>{{ param.byte_161_162 }}</td>
+                <td>{{ param.flux_summ }}</td>
+                <td>{{ param.byte_202_203 }}</td>
+                <td>{{ param.byte_204_205 }}</td>
+                <td>{{ param.byte_215 }}</td>
+                <td><a class="button-adb detail-link"
+                        href="{{ url_for('params.detail', param_id = param.id)  }}">Detail</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div> <!-- col-->
+</div> <!-- row -->
+{% endblock %}

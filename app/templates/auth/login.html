@@ -1,0 +1,25 @@
+{% macro render_field(field, placeholder=None) %}
+<div>
+    {% set css_class = 'form-control ' + kwargs.pop('class', '') %}
+    {{ field(class=css_class, placeholder=placeholder, **kwargs) }}
+</div>
+{% endmacro %}
+
+{% extends 'base.html' %}
+
+{% block title %}
+Login
+{% endblock %}
+
+{% block cont_main %}
+<div class="row my-1 justify-content-md-center">
+    <div class="col-md-3">
+        <form method="POST" action="/login" accept-charset="UTF-8" role="form">
+            {{ form.csrf_token }}
+            {{ render_field(form.email, placeholder="Your Email Address", autofocus="") }}
+            {{ render_field(form.password, placeholder="Password") }}
+            <button type="submit" name="submit">Login</button>
+        </form>
+    </div>
+</div>
+{% endblock %}

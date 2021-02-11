@@ -1,0 +1,29 @@
+{% macro render_field(field, placeholder=None) %}
+<div>
+    <dt>{{ field.label }}
+    <dd>{{ field(placeholder = placheholder, **kwargs)|safe }}
+</div>
+{% endmacro %}
+
+{% extends 'base.html' %}
+
+{% block title %}
+Register form
+{% endblock %}
+
+{% block cont_main %}
+{% if message %}
+<p>{{ message }}</p>
+{% endif %}
+<form method="post" action="{{ url_for('register') }}" accept-charset="UTF-8" role="form">
+    {{ form.csrf_token }}
+    {{ render_field(form.username, placeholder="Username") }}
+    {{ render_field(form.email, placeholder="Your Email Address",
+                    autofocus="") }}
+    {{ render_field(form.password, placeholder="Password") }}
+    {{ render_field(form.repeat_password, placeholder="Repeat Password") }}
+    {{ render_field(form.role, placeholder="Role") }}
+    {{ render_field(form.status, placeholder="Status") }}
+    <button type="submit" name="submit">Register</button>
+</form>
+{% endblock %}

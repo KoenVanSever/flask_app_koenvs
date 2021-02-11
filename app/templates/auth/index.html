@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% block title %}
+profile - index
+{% endblock %}
+
+{% block cont_main %}
+<h1>Profiles</h1>
+<table class="table table-striped">
+    <tr class="table-primary">
+        <th>ID</th>
+        <th>Name</th>
+        <th>E-mail</th>
+        <th>Password</th>
+        <th>Role</th>
+        <th>Status</th>
+    </tr>
+    {% for user in users %}
+    <tr>
+        <td>{{ user.id }}</td>
+        <td>{{ user.name }}</td>
+        <td>{{ user.email }}</td>
+        <td>{{ user.password }}</td>
+        <td>{{ user.role }}</td>
+        <td>{{ user.status }}</td>
+    </tr>
+    {% endfor %}
+</table>
+{% endblock %}

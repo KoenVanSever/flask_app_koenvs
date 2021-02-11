@@ -1,0 +1,96 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Param with id {{ param.id }}
+{% endblock %}
+
+{% block cont_main %}
+<div class="row">
+    <div class="col-2 action-bar mt-1">
+        <div class="row my-2 gx-1">
+            <div class="col-6">
+                <a href="{{ url_for('params.index') }}" class="button-adb detail-button">DB Home</a>
+                <button id="save_db" class="button-adb detail-button">Save</button>
+                <button id="delete_db" class="button-adb detail-button">Delete</button>
+            </div> <!-- 1st row -->
+            <div class="col-6">
+                <button id="export_csv" class="button-adb detail-button">Export CSV</button>
+                <button id="next_param" class="button-adb detail-button">Param Next</button>
+                <button id="prev_param" class="button-adb detail-button">Param Prev</button>
+            </div> <!-- 2nd row-->
+        </div> <!-- row buttons -->
+        <div class="row">
+            <!-- flashes -->
+            <div class="col-12">
+                {% with messages = get_flashed_messages(with_categories = true) %}
+                {% if messages %}
+                {% for message in messages %}
+                {% if message.0 == "info" %}
+                <div class="row my-2 bg-info message-popup py-1">
+                    <b>{{ message.1 }}</b>
+                </div> <!-- row -->
+                {% endif %}
+                <!-- info if -->
+                {% if message.0 == "warning" %}
+                <div class="row my-2 bg-warning message-popup py-1">
+                    <b>{{ message.1 }}</b>
+                </div> <!-- row -->
+                {% endif %}
+                <!-- warning if -->
+                {% if message.0 == "error" %}
+                <div class="row my-2 bg-danger message-popup py-1">
+                    <b>{{ message.1 }}</b>
+                </div> <!-- row -->
+                {% endif %}
+                <!-- error if -->
+                {% endfor %}
+                <!-- message loop -->
+                {% endif %}
+                <!-- messages if -->
+                {% endwith %}
+                <!-- with messages -->
+            </div> <!-- col-12 -->
+        </div> <!-- flashes -->
+    </div> <!-- col-2 -->
+
+    <div class="col-10">
+        <form id="param-form" method="post" action="{{ url_for('params.detail', param_id = param.id) }}">
+            <div class="row">
+                <!-- !unprotected with CSRF, not critical for localhost -->
+                {% with p_dict = param.export_dict() %}
+                <div class="col-6">
+                    <div id="csv_name" class="detail-field m-1 p-1 param-meta">
+                        <b class="mx-2 align-middle">CSV name</b><input type="text" name="csv_name"
+                            class="float-end mx-2" size="60" value="{{ param.csv_name }}">
+                    </div>
+                </div>
+                <div class="col-3">
+                    <div id="short_name" class="detail-field m-1 p-1 param-meta">
+                        <b class="mx-2 align-middle">Short name</b><input type="text" name="short_name"
+                            class="float-end mx-2" size="20" value="{{ param.short_name }}">
+                    </div>
+                </div>
+                <div class="col-3">
+                    <div id="light_family" class="detail-field m-1 p-1 param-meta">
+                        <b class="mx-2 align-middle">Light Family</b><input type="text" name="light_family"
+                            class="float-end mx-2" size="5" value="{{ param.light_family }}">
+                    </div>
+                </div>
+                {% for k, v in p_dict.items() %}
+                <div class="col-3">
+                    <div id="{{k}}" class="detail-field {{ v.1 }} m-1 p-1">
+                        <b class="mx-2 align-middle">{{ k }}</b><input type="text" name="{{ k }}"
+                            class="float-end mx-2 " size="5" value="{{ v.0 }}">
+                    </div>
+                </div> <!-- col-3 -->
+                {% endfor %}
+                {% endwith %}
+            </div> <!-- row -->
+        </form>
+    </div> <!-- col-10 -->
+</div> <!-- row -->
+{% endblock %}
+
+{% block footer_script %}
+<script src="{{ url_for('static', filename='js/param_detail.js' )}}"></script>
+{% endblock %}
