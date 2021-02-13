@@ -3,3 +3,4 @@ flaskenv
 */temporary
 __pycache__/
 test.db
+.pylintrc

@@ -9,6 +9,7 @@
   background-color: white;
   border-color: #f49b01;
 }
+.header-link { display: inline-block !important; }
 .navbar_link:hover {  color: var(--adbblue); }
 .detail-link:hover {  color: white; }
 .detail-link {
@@ -28,6 +29,8 @@
   margin-left: 0.25rem;
   margin-right: 0.25rem;
 }
+
+.field-input { width: auto !important; max-width: 90% !important; } 
 
 #file-submit {
   color: gray;

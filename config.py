@@ -33,3 +33,5 @@ SECRET_KEY = "qs351qdqsdhhtfsibd4153q1q'qd5g4153q"
 # Configure permanent session lifetime when permanent session is True
 from datetime import timedelta
 PERMANENT_SESSION_LIFETIME = timedelta(minutes=30)
+
+USE_SESSION_FOR_NEXT = True

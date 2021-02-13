@@ -53,7 +53,7 @@ class Params(Base):
     byte_130 = db.Column("byte_130", db.SmallInteger, nullable=False)
     byte_131 = db.Column("byte_131", db.SmallInteger, nullable=False)
     byte_132 = db.Column("byte_132", db.SmallInteger, nullable=False)
-    byte_132 = db.Column("byte_132", db.SmallInteger, nullable=False)
+    byte_133 = db.Column("byte_133", db.SmallInteger, nullable=False)
     byte_134 = db.Column("byte_134", db.SmallInteger, nullable=False)
     byte_135 = db.Column("byte_135", db.SmallInteger, nullable=False)
     byte_136 = db.Column("byte_136", db.SmallInteger, default=0, nullable=False)
@@ -150,7 +150,7 @@ class Params(Base):
         vals = list(data_map.values())
         param = [self.short_name] + vals
         line = delimiter.join(param) + "\n"
-        with open(Path("temporary", filename), "w") as file:
+        with open(Path("app", "temporary", filename), "w") as file:
             file.write(line)
 
     @property
@@ -408,7 +408,7 @@ class Params(Base):
         self.byte_131 = immutabledict["Release Not Used"]
 
         self.byte_132 = immutabledict["Inverse Release Year"]
-        self.byte_132 = immutabledict["Inverse Release Week"]
+        self.byte_133 = immutabledict["Inverse Release Week"]
         self.byte_134 = immutabledict["Inverse Release Version "]
         self.byte_135 = immutabledict["Inverse Release Not Used"]
 

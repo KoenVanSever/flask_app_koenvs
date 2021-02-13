@@ -9,27 +9,7 @@ Params - Home
 {% endblock %}
 
 {% block cont_main %}
-{% with messages = get_flashed_messages(with_categories = true) %}
-{% if messages %}
-{% for message in messages %}
-{% if message.0 == "warning" %}
-<div class="row my-2 bg-warning message-popup py-1">
-    <b>{{ message.1 }}</b>
-</div> <!-- row -->
-{% endif %}
-<!-- warning if -->
-{% if message.0 == "error" %}
-<div class="row my-2 bg-danger message-popup py-1">
-    <b>{{ message.1 }}</b>
-</div> <!-- row -->
-{% endif %}
-<!-- error if -->
-{% endfor %}
-<!-- message loop -->
-{% endif %}
-<!-- messages if -->
-{% endwith %}
-<!-- with messages -->
+{% include 'params/flashes.html' %}
 
 <div class="row my-2">
     <div class="col-6 message-popup py-1" id="file-submit">
@@ -83,6 +63,26 @@ Params - Home
                 <th>(mA)</th>
                 <th>/</th>
             </tr>
+            <tr id="search-header" class="tr-header">
+                <th><input class="form-control" id="csv-search" value="" placeholder="entry"></th>
+                <th><input class="form-control" id="curr-search" value="" placeholder="entry"></th>
+                <th><input class="form-control" id="vf-search" value="" placeholder="entry"></th>
+                <th><input class="form-control" id="num-search" value="" placeholder="entry"></th>
+                <th><input class="form-control" id="rev-search" value="" placeholder="entry"></th>
+                <th><input class="form-control" id="dc14-search" value="" placeholder="entry"></th>
+                <th><input class="form-control" id="dc28-search" value="" placeholder="entry"></th>
+                <th><input class="form-control" id="dc34-search" value="" placeholder="entry"></th>
+                <th><input class="form-control" id="dc41-search" value="" placeholder="entry"></th>
+                <th><input class="form-control" id="dc48-search" value="" placeholder="entry"></th>
+                <th><input class="form-control" id="dc52-search" value="" placeholder="entry"></th>
+                <th><input class="form-control" id="dc55-search" value="" placeholder="entry"></th>
+                <th><input class="form-control" id="dc66-search" value="" placeholder="entry"></th>
+                <th><input class="form-control" id="flux-search" value="" placeholder="entry"></th>
+                <th><input class="form-control" id="lindim-search" value="" placeholder="entry"></th>
+                <th><input class="form-control" id="freq-search" value="" placeholder="entry"></th>
+                <th><input class="form-control" id="dualmon-search" value="" placeholder="entry"></th>
+                <th><button id="filter-button" class="button-adb detail-link">Filter</button></th>
+            </tr>
             {% for param in params %}
             <tr class="table-hover tr-data">
                 <td style="text-align: left;">{{ param.csv_name }}</td>
@@ -114,4 +114,8 @@ Params - Home
         </table>
     </div> <!-- col-->
 </div> <!-- row -->
+{% endblock %}
+
+{% block footer_script %}
+<script src="{{ url_for('static', filename='js/param_index.js' ) }}"></script>
 {% endblock %}

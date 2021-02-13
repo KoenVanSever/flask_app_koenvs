@@ -25,9 +25,19 @@
     <body>
         <!-- !HEADER/NAV -->
         <header class="container-fluid sticky-top ">
-            <nav class="navbar p-0 align-self-center">
-                <a class="button-adb navbar-link" href="{{ url_for('index') }}">Index</a>
-                <a class="button-adb navbar-link" href="{{ url_for('logout') }}">Logout</a>
+            <nav class="navbar p-0">
+                <div class="float-start">
+                    <a class="button-adb navbar-link header-link" href="{{ url_for('index') }}">Index</a>
+                    <a class="button-adb navbar-link header-link" href="{{ url_for('params.index' )}}">Params</a>
+                </div>
+                <div class="float-end">
+                    {% if session._user_id%}
+                    <a class="button-adb navbar-link header-link" href="{{ url_for('logout') }}">Logout</a>
+                    {% else %}
+                    <a class="button-adb navbar-link header-link" href="{{ url_for('register')}}">Register</a>
+                    <a class="button-adb navbar-link header-link" href="{{ url_for('login') }}">Login</a>
+                    {% endif %}
+                </div>
             </nav>
         </header>
         <div class="container-fluid px-5 mb-5">

@@ -1,0 +1,38 @@
+<div class="row">
+    <!-- flashes -->
+    <div class="col-12">
+        {% with messages = get_flashed_messages(with_categories = true) %}
+        {% if messages %}
+        {% for message in messages %}
+        {% if message.0 == "success" %}
+        <div class="row my-2 bg-success message-popup py-1">
+            <b>{{ message.1 }}</b>
+        </div> <!-- row -->
+        {% endif %}
+        <!-- success if -->
+        {% if message.0 == "info" %}
+        <div class="row my-2 bg-info message-popup py-1">
+            <b>{{ message.1 }}</b>
+        </div> <!-- row -->
+        {% endif %}
+        <!-- info if -->
+        {% if message.0 == "warning" %}
+        <div class="row my-2 bg-warning message-popup py-1">
+            <b>{{ message.1 }}</b>
+        </div> <!-- row -->
+        {% endif %}
+        <!-- warning if -->
+        {% if message.0 == "error" %}
+        <div class="row my-2 bg-danger message-popup py-1">
+            <b>{{ message.1 }}</b>
+        </div> <!-- row -->
+        {% endif %}
+        <!-- error if -->
+        {% endfor %}
+        <!-- message loop -->
+        {% endif %}
+        <!-- messages if -->
+        {% endwith %}
+        <!-- with messages -->
+    </div> <!-- col-12 -->
+</div> <!-- flashes -->

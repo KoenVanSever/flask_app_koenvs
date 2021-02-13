@@ -1,8 +1,8 @@
-"""initial version
+"""initial release
 
-Revision ID: 900691b5ce9c
+Revision ID: 1b4ab3bc6ecd
 Revises: 
-Create Date: 2021-02-07 20:02:50.161875
+Create Date: 2021-02-13 09:49:06.328081
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = '900691b5ce9c'
+revision = '1b4ab3bc6ecd'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -42,6 +42,7 @@ def upgrade():
     sa.Column('byte_130', sa.SmallInteger(), nullable=False),
     sa.Column('byte_131', sa.SmallInteger(), nullable=False),
     sa.Column('byte_132', sa.SmallInteger(), nullable=False),
+    sa.Column('byte_133', sa.SmallInteger(), nullable=False),
     sa.Column('byte_134', sa.SmallInteger(), nullable=False),
     sa.Column('byte_135', sa.SmallInteger(), nullable=False),
     sa.Column('byte_136', sa.SmallInteger(), nullable=False),
