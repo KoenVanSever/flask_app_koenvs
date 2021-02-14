@@ -1,9 +1,24 @@
 {% extends 'base.html' %}
 
 {% block title %}
-root_index
+Homepage
 {% endblock %}
 
 {% block cont_main %}
-<h1>root_index_page</h1>
+<div class="row">
+    <div class="col-4">
+        <h2 class="mt-3" style="color: var(--adbblue);">Contents</h2>
+        <div class="list-group">
+            <a class="list-group-item" href="{{ url_for('params.index') }}">
+                <div class="d-flex w-100 justify-content-between">
+                    <h5>Parameters</h5>
+                    <small>LED configuration files</small>
+                </div>
+                <p>Parameter file database that enables configuration, alteration and generation of parameter files.
+                </p>
+            </a>
+        </div>
+    </div>
+</div>
+
 {% endblock %}

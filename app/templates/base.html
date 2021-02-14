@@ -27,7 +27,7 @@
         <nav class="px-5 nav sticky-top justify-content-start nav-base">
             <a class="h-100 nav-link p-0 nav-item" href="{{ url_for('index') }}"><img class="h-100"
                     src="{{ url_for('static', filename='img/ADBSG_logo_resized.gif') }}"></a>
-            <a class="nav-link nav-item" href="{{ url_for('params.index' )}}">Parameters</a>
+            <a class="nav-link nav-item" href="{{ url_for('params.index') }}">Parameters</a>
             {% if session._user_id%}
             <a class="nav-link nav-item ms-auto" href="{{ url_for('logout') }}">Logout</a>
             {% else %}
