@@ -11,13 +11,19 @@ Params - Home
 {% block cont_main %}
 {% include 'params/flashes.html' %}
 
-<div class="row my-2">
-    <div class="col-6 message-popup py-1" id="file-submit">
+<div class="row ps-2 my-2">
+    <div class="col-4 message-popup py-1" id="file-submit">
         <form method="post" action="{{ url_for('params.index') }}" enctype="multipart/form-data">
-            {{ upload_form.csrf_token }}
-            {{ upload_form.files.label }}
-            {{ upload_form.files }}
-            <input class="float-end" type="submit" name="submit" value="Submit">
+            <span class="d-inline-block">
+                {{ upload_form.csrf_token }}
+                {{ upload_form.files.label }}
+                {{ upload_form.files }}<br>
+            </span>
+            <span class="d-inline-block pt-2 w-100">
+                {{ upload_form.category.label }}
+                {{ upload_form.category(size=32) }}
+                <input class="float-end" type="submit" name="submit" value="Submit">
+            </span>
         </form>
     </div> <!-- col -->
 </div> <!-- row -->

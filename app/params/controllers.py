@@ -28,6 +28,7 @@ def index():
             temp = file.save(path)  # TODO: (1)
             try:
                 param = Params.upload_file(path)
+                param.light_family = upload_form.category.data
                 db.session.add(param)
                 flash("File '%s': added to database" % param.csv_name, category="success")
             except AttributeError:
