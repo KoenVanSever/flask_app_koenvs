@@ -1,16 +1,19 @@
 :root {
   --adbblue: #004c5e;
 }
+a { color: inherit; }
 
-.navbar {  height: inherit; }
+a:hover { color: inherit;}
 
-.navbar-link {
-  color: #f49b01;
-  background-color: white;
-  border-color: #f49b01;
+.nav-base {
+  background-color: var(--adbblue);
+  height: 5vh;
+  color: white;
 }
-.header-link { display: inline-block !important; }
-.navbar_link:hover {  color: var(--adbblue); }
+.nav-item:hover {
+  color: var(--adbblue);
+  background-color: white;
+}
 .detail-link:hover {  color: white; }
 .detail-link {
   color: gray;
