@@ -35,30 +35,30 @@ const vol2b = $("input[name='Nominal Voltage (10 mV)']");
 
 let compareCurrent = (function (obj1, obj2) {
     if (obj1[0].value == obj2[0].value) {
-        obj1.css({ "border-color": "green", "border-width": "0.2rem" });
-        obj2.css({ "border-color": "green", "border-width": "0.2rem" });
+        obj1.css({ "border-color": "green", "border-width": "0.3rem" });
+        obj2.css({ "border-color": "green", "border-width": "0.3rem" });
     } else {
-        obj1.css({ "border-color": "red", "border-width": "0.2rem" });
-        obj2.css({ "border-color": "red", "border-width": "0.2rem" });
+        obj1.css({ "border-color": "red", "border-width": "0.3rem" });
+        obj2.css({ "border-color": "red", "border-width": "0.3rem" });
     }
 });
 
 let compareFlux = (function () {
     let array = flux.map(function () { return $(this).val() }).get();
     if (array.every((e) => { return e == array[0]; })) {
-        flux.css({ "border-color": "green", "border-width": "0.2rem" });
+        flux.css({ "border-color": "green", "border-width": "0.3rem" });
     } else {
-        flux.css({ "border-color": "red", "border-width": "0.2rem" });
+        flux.css({ "border-color": "red", "border-width": "0.3rem" });
     }
 });
 
 let compareVoltage = (function () {
     if ((vol1b.val() < 255 && vol2b.val() == 65535) || (vol1b.val() == 255 && vol2b.val() > 2500)) {
-        vol1b.css({ "border-color": "green", "border-width": "0.2rem" });
-        vol2b.css({ "border-color": "green", "border-width": "0.2rem" });
+        vol1b.css({ "border-color": "green", "border-width": "0.3rem" });
+        vol2b.css({ "border-color": "green", "border-width": "0.3rem" });
     } else {
-        vol1b.css({ "border-color": "red", "border-width": "0.2rem" });
-        vol2b.css({ "border-color": "red", "border-width": "0.2rem" });
+        vol1b.css({ "border-color": "red", "border-width": "0.3rem" });
+        vol2b.css({ "border-color": "red", "border-width": "0.3rem" });
     }
 });
 
@@ -74,6 +74,28 @@ compareVoltage()
 vol1b.on("keyup", () => compareVoltage());
 vol2b.on("keyup", () => compareVoltage());
 
+const today = new Date();
+$("#release_today").on("click", () => {
+    let year = today.getFullYear();
+    let week = ISO8601_week_no(today);
+    $("input[name='Release Year']").val(String(year - 2000));
+    $("input[name='Inverse Release Year']").val(String(255 - (year - 2000)));
+    $("input[name='Release Week']").val(String(week));
+    $("input[name='Inverse Release Week']").val(String(255 - week));
+    $("input[name='Release Version']").val("1");
+    $("input[name='Inverse Release Version']").val("254");
+    $("input[name='Release Not Used']").val("1");
+    $("input[name='Inverse Release Not Used']").val("254");
+});
+$("#prog_today").on("click", () => {
+    let [month, day, year] = today.toLocaleDateString().split("/");
+    let [hour, minute, second] = today.toLocaleTimeString().slice(0, 7).split(":");
+    $("input[name='Programming Date Year']").val(year.substring(year.length - 2, year.length));
+    $("input[name='Programming Date Month']").val(month);
+    $("input[name='Programming Date Day']").val(day);
+    $("input[name='Programming Date Hour']").val(hour);
+})
+
 
 // -- Named functions:
 function makeDimmingCurve(input) {
@@ -83,6 +105,18 @@ function makeDimmingCurve(input) {
         document.getElementById(e).value = Math.round(input[i] * reference / 100);
         i += 1;
     }
+}
+
+function ISO8601_week_no(dt) {
+    let tdt = new Date(dt.valueOf());
+    let dayn = (dt.getDay() + 6) % 7;
+    tdt.setDate(tdt.getDate() - dayn + 3);
+    let firstThursday = tdt.valueOf();
+    tdt.setMonth(0, 1);
+    if (tdt.getDay() !== 4) {
+        tdt.setMonth(0, 1 + ((4 - tdt.getDay()) + 7) % 7);
+    }
+    return 1 + Math.ceil((firstThursday - tdt) / 604800000);
 }
 
 

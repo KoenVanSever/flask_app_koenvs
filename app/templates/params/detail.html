@@ -6,39 +6,46 @@ Param with id {{ param.id }}
 
 {% block cont_main %}
 <div class="row">
-    <div class="col-2 action-bar mt-1">
-        <div class="row my-2 gx-1">
-            <div class="col-6">
-                <a href="{{ url_for('params.index') }}" class="button-adb detail-button">DB Home</a>
-                <button id="save_db" class="button-adb detail-button">Save</button>
-                <a href="{{ url_for('params.delete', param_id = param.id) }}"
-                    class="button-adb detail-button">Delete</a>
-
-            </div> <!-- 1st row -->
-            <div class="col-6">
-                <a href="{{ url_for('params.export', param_id = param.id) }}" class="button-adb detail-button">Export
-                    CSV</a>
-                <a href="{{ url_for('params.detail', param_id = id_prev_next.1)}}"
-                    class="button-adb detail-button">Param Next</a>
-                <a href="{{ url_for('params.detail', param_id = id_prev_next.0)}}"
-                    class="button-adb detail-button">Param Prev</a>
-
-            </div> <!-- 2nd row-->
-        </div> <!-- row buttons -->
-        <div class="row my-2 gx-1">
+    <div class="col-2 px-3 action-bar mt-1">
+        <div class="row gx-1">
+            <div class="col-lg-6 my-1"><a href="{{ url_for('params.index') }}" class="button-adb detail-button h-100">DB
+                    Home</a></div>
+            <div class="col-lg-6 my-1"><a href="{{ url_for('params.export', param_id = param.id) }}"
+                    class="button-adb detail-button h-100">Export
+                    CSV</a></div>
+        </div>
+        <div class="row gx-1">
+            <div class="col-lg-6 my-1"><button id="save_db" class="button-adb detail-button h-100">Save</button></div>
+            <div class="col-lg-6 my-1"><a href="{{ url_for('params.detail', param_id = id_prev_next.1)}}"
+                    class="button-adb detail-button h-100">Param
+                    Next</a></div>
+        </div>
+        <div class="row gx-1">
+            <div class="col-lg-6 my-1"><a href="{{ url_for('params.delete', param_id = param.id) }}"
+                    class="button-adb detail-button h-100">Delete</a></div>
+            <div class="col-lg-6 my-1"><a href="{{ url_for('params.detail', param_id = id_prev_next.0)}}"
+                    class="button-adb detail-button h-100">Param
+                    Prev</a></div>
+        </div>
+        <div class="row my-1 gx-1">
             <button id="dc-color" class="button-adb detail-button">Default dimming curve color</button>
+        </div>
+        <div class="row my-1 gx-1">
             <button id="dc-white" class="button-adb detail-button">Default dimming curve white</button>
         </div>
-        <div class="row my-2 gx-1">
-            <div class="col-6">
-                <button id="set-flux" class="button-adb detail-button">Set Flux</button>
-            </div>
-            <div class="col-6">
-                <input id="flux-input" class="form-control side-bar-input">
-            </div>
+        <div class="row gx-1">
+            <div class="col-lg-6 my-1"><button id="set-flux" class="button-adb detail-button">Set Flux</button></div>
+            <div class="col-lg-6 my-1"><input id="flux-input" class="form-control side-bar-input"></div>
+        </div>
+        <div class="row my-1 gx-1">
+            <button id="prog_today" class="button-adb detail-button">Programming date to today</button>
+        </div>
+        <div class="row my-1 gx-1">
+            <button id="release_today" class="button-adb detail-button">Release date to today</button>
         </div>
         {% include 'params/flashes.html' %}
-    </div> <!-- col-2 -->
+    </div> <!-- 2nd row-->
+
 
     <div class="col-10">
         <form id="param-form" method="post" action="{{ url_for('params.detail', param_id = param.id) }}">

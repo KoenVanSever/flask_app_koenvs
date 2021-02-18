@@ -56,6 +56,7 @@ a:hover { color: inherit;}
   border-radius: 0.5rem;
   border-style: solid;
   display: block;
+  text-align: center;
 }
 
 .detail-button {
