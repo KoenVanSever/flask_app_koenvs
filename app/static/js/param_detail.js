@@ -25,6 +25,54 @@ fluxButton.addEventListener("click", () => {
         document.getElementById(element).value = target;
     }
 })
+// -- Error check coloring
+// /i used with jQuery
+// TODO: color code inputs where flux/current/data/... match what is expected
+const nomCurr = $("input[name='Nominal Current (mA)']");
+const curr6600 = $("input[name='Dimming Curve 6600 mA']");
+const vol1b = $("input[name='Nominal Voltage (100 mV)']");
+const vol2b = $("input[name='Nominal Voltage (10 mV)']");
+
+let compareCurrent = (function (obj1, obj2) {
+    if (obj1[0].value == obj2[0].value) {
+        obj1.css({ "border-color": "green", "border-width": "0.2rem" });
+        obj2.css({ "border-color": "green", "border-width": "0.2rem" });
+    } else {
+        obj1.css({ "border-color": "red", "border-width": "0.2rem" });
+        obj2.css({ "border-color": "red", "border-width": "0.2rem" });
+    }
+});
+
+let compareFlux = (function () {
+    let array = flux.map(function () { return $(this).val() }).get();
+    if (array.every((e) => { return e == array[0]; })) {
+        flux.css({ "border-color": "green", "border-width": "0.2rem" });
+    } else {
+        flux.css({ "border-color": "red", "border-width": "0.2rem" });
+    }
+});
+
+let compareVoltage = (function () {
+    if ((vol1b.val() < 255 && vol2b.val() == 65535) || (vol1b.val() == 255 && vol2b.val() > 2500)) {
+        vol1b.css({ "border-color": "green", "border-width": "0.2rem" });
+        vol2b.css({ "border-color": "green", "border-width": "0.2rem" });
+    } else {
+        vol1b.css({ "border-color": "red", "border-width": "0.2rem" });
+        vol2b.css({ "border-color": "red", "border-width": "0.2rem" });
+    }
+});
+
+compareCurrent(nomCurr, curr6600);
+nomCurr.on("keyup", () => compareCurrent(nomCurr, curr6600));
+curr6600.on("keyup", () => compareCurrent(nomCurr, curr6600));
+
+const flux = $("input[name*='Flux Compen']");
+compareFlux();
+flux.on("keyup", () => compareFlux());
+
+compareVoltage()
+vol1b.on("keyup", () => compareVoltage());
+vol2b.on("keyup", () => compareVoltage());
 
 
 // -- Named functions:

@@ -6,12 +6,12 @@ for (child of searchChildren) {
     child.lastChild.addEventListener("keypress", (e) => {
         if (e.key == "Enter") {
             console.log("test");
-            toggle_hide_on_search();
+            toggleHideOnSearch();
         }
     });
 }
 
-function toggle_hide_on_search() {
+function toggleHideOnSearch() {
     for (line of rows) {
         line.hidden = false;
     }
