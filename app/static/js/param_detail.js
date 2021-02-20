@@ -32,6 +32,8 @@ const nomCurr = $("input[name='Nominal Current (mA)']");
 const curr6600 = $("input[name='Dimming Curve 6600 mA']");
 const vol1b = $("input[name='Nominal Voltage (100 mV)']");
 const vol2b = $("input[name='Nominal Voltage (10 mV)']");
+const numLeds = $("input[name='Number of LEDs']");
+const linDim = $("input[name='Minimum Linear Dimming']");
 
 let compareCurrent = (function (obj1, obj2) {
     if (obj1[0].value == obj2[0].value) {
@@ -53,14 +55,50 @@ let compareFlux = (function () {
 });
 
 let compareVoltage = (function () {
-    if ((vol1b.val() < 255 && vol2b.val() == 65535) || (vol1b.val() == 255 && vol2b.val() > 2500)) {
-        vol1b.css({ "border-color": "green", "border-width": "0.3rem" });
-        vol2b.css({ "border-color": "green", "border-width": "0.3rem" });
-    } else {
-        vol1b.css({ "border-color": "red", "border-width": "0.3rem" });
-        vol2b.css({ "border-color": "red", "border-width": "0.3rem" });
+    switch (true) {
+        case (vol1b.val() < 255 && vol2b.val() == 65535):
+            if (numLeds.val() * 18 < vol1b.val() && vol1b.val() < numLeds.val() * 36) {
+                vol1b.css({ "border-color": "green", "border-width": "0.3rem" });
+                vol2b.css({ "border-color": "green", "border-width": "0.3rem" });
+                numLeds.css({ "border-color": "green", "border-width": "0.3rem" });
+            } else {
+                vol1b.css({ "border-color": "red", "border-width": "0.3rem" });
+                vol2b.css({ "border-color": "green", "border-width": "0.3rem" });
+                numLeds.css({ "border-color": "red", "border-width": "0.3rem" });
+            }
+            break;
+        case (vol1b.val() == 255 && 2500 < vol2b.val() < 65535):
+            console.log("test2");
+            if (numLeds.val() * 200 < vol2b.val() && vol2b.val() < numLeds.val() * 360) {
+                vol1b.css({ "border-color": "green", "border-width": "0.3rem" });
+                vol2b.css({ "border-color": "green", "border-width": "0.3rem" });
+                numLeds.css({ "border-color": "green", "border-width": "0.3rem" });
+            } else {
+                vol1b.css({ "border-color": "green", "border-width": "0.3rem" });
+                vol2b.css({ "border-color": "red", "border-width": "0.3rem" });
+                numLeds.css({ "border-color": "red", "border-width": "0.3rem" });
+            }
+            break;
+        default:
+            vol1b.css({ "border-color": "red", "border-width": "0.3rem" });
+            vol2b.css({ "border-color": "red", "border-width": "0.3rem" });
+            numLeds.css({ "border-color": "red", "border-width": "0.3rem" });
+            break;
     }
 });
+
+let compareLinDim = (function () {
+    if (linDim.val() < 300) {
+        linDim.css({ "border-color": "yellow", "border-width": "0.3rem" });
+    } else if (linDim.val() > 65535) {
+        linDim.css({ "border-color": "red", "border-width": "0.3rem" });
+    } else {
+        linDim.css({ "border-color": "green", "border-width": "0.3rem" });
+    }
+});
+
+compareLinDim();
+linDim.on("keyup", () => compareLinDim());
 
 compareCurrent(nomCurr, curr6600);
 nomCurr.on("keyup", () => compareCurrent(nomCurr, curr6600));
@@ -73,6 +111,7 @@ flux.on("keyup", () => compareFlux());
 compareVoltage()
 vol1b.on("keyup", () => compareVoltage());
 vol2b.on("keyup", () => compareVoltage());
+numLeds.on("keyup", () => compareVoltage());
 
 const today = new Date();
 $("#release_today").on("click", () => {
