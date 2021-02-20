@@ -34,8 +34,12 @@ def not_found(error):
 
 
 from app.params.controllers import params
+from app.dimming.controllers import dimming
+from app.magnetics.controllers import magnetics
 # from app.profile.controllers import profile as prof
 app.register_blueprint(params)
+app.register_blueprint(dimming)
+app.register_blueprint(magnetics)
 # app.register_blueprint(prof)
 from app.params import models
 
