@@ -35,3 +35,7 @@ from datetime import timedelta
 PERMANENT_SESSION_LIFETIME = timedelta(hours=24)
 
 USE_SESSION_FOR_NEXT = True
+
+STATIC_FOLDER = os.path.join(BASE_DIR, "static")
+UPLOAD_FOLDER = os.path.join(BASE_DIR, "static", "uploaded_files")
+ALLOWED_EXTENSIONS = {"csv"}

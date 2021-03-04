@@ -1,9 +1,81 @@
 {% extends 'base.html' %}
 
+{% macro render_field(field) %}
+<div style="align-self: center;">
+    <span class="radio-button">{{ field.label }} {{ field }}</span>
+</div>
+
+{% endmacro %}
+
 {% block title %}
 Dimming Curve Homepage
 {% endblock %}
 
-{% block cont_main %}
+{% block meta %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/dimming.css') }}">
+<script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+<script type="text/javascript">
+    const default_data = JSON.parse('{{ plotly_json|tojson|safe }}');
+    const default_layout = {
+        title: 'Dimming Curve',
+        plot_bgcolor: "#cccccc",
+        xaxis: {
+            title: 'Current (mA)',
+            showgrid: true,
+            range: [2500, 7000],
+            tickvals: [2800, 3100, 3400, 3800, 4100, 4500, 4800, 5200, 5500, 5800, 6200, 6600]
+        },
+        yaxis: {
+            title: 'Percent (%)',
+            showline: false,
+            range: [0, 105],
+        }
+    };
+    $(document).ready(function () {
+        console.log(default_data);
+        Plotly.newPlot('plot-area', default_data, default_layout);
+    })
+</script>
+{% endblock %}
 
+
+{% block cont_main %}
+<div>
+    <form method="post" action="{{ url_for('dimming.index') }}" enctype="multipart/form-data">
+        <div class="row mt-2 p-3 import-file">
+            {{ upload_form.csrf_token }}
+            <div class="col-4">
+                {{ upload_form.file.label }}
+                {{ upload_form.file }}
+            </div>
+            <div class="col-4">
+                {{ upload_form.name.label }}
+                {{ upload_form.name(size=32) }}
+            </div>
+            <div class="col-3">
+                <!-- {{ upload_form.color_type.label }}
+                {{ upload_form.color_type(size=32) }} -->
+                {{ render_field(upload_form.color_type) }}
+            </div>
+            <div class="col-1">
+                <input class="float-end" type="submit" name="submit" value="Submit">
+            </div>
+        </div> <!-- row -->
+    </form>
+</div>
+<div class="row mt-2 flex-grow-1">
+    <div class="col-2" id="dim_selection">
+        {% for dim in dimming_list %}
+        <div class="dim-element p-1 text-center mb-1" name="{{ dim.name }}">{{ dim.name }}</div>
+        {% endfor %}
+    </div>
+    <div class="col-10" id="plot-area">
+
+    </div>
+</div>
+
+{% endblock %}
+
+{% block footer_script %}
+<script src="{{ url_for('static', filename='js/dimming.js') }}"></script>
 {% endblock %}

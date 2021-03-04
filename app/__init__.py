@@ -1,7 +1,8 @@
 from flask import Flask, Blueprint, request, render_template, \
     flash, g, session, redirect, url_for
 from flask_sqlalchemy import SQLAlchemy
-from flask_migrate import Migrate
+from flask_migrate import Migrate, MigrateCommand
+from flask_script import Manager
 from flask_login import LoginManager, login_required, login_user, logout_user, current_user
 from werkzeug.security import check_password_hash, generate_password_hash
 import os
@@ -16,6 +17,9 @@ app.config.from_object("config")
 #! define database
 db = SQLAlchemy(app)
 migrate = Migrate(app, db)
+
+# manager = Manager(app)
+# manager.add_command('db', MigrateCommand)
 
 #! define login manager
 login_manager = LoginManager()
@@ -42,6 +46,7 @@ app.register_blueprint(dimming)
 app.register_blueprint(magnetics)
 # app.register_blueprint(prof)
 from app.params import models
+from app.dimming import models
 
 # --------------
 # -- Login tasks

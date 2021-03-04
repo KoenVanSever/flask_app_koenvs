@@ -1,0 +1,17 @@
+.import-file {
+    background-color: gray;
+    color: white;
+    border-radius: 1rem;
+}
+
+.radio-button label, ul, li {
+    display: inline;
+    margin-left: 0.2rem;
+    margin-right: 0.2rem;
+    margin-bottom: 0rem;
+}
+
+.dim-element {
+    border-radius: 0.25rem;
+    background-color: #f8f67c;
+}

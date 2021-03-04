@@ -23,7 +23,7 @@
         <title>{% block title %} {% endblock %}</title>
         <link rel="shortcut icon" href="{{url_for('static', filename='img/favicon.ico')}}">
     </head>
-    <body>
+    <body class="vh-100">
         <!-- !HEADER/NAV -->
         <nav class="px-5 nav sticky-top justify-content-start nav-base">
             <a class="h-100 nav-link p-0 nav-item" href="{{ url_for('index') }}"><img class="h-100"
@@ -38,7 +38,7 @@
             <a class="nav-link nav-item" href="{{ url_for('login') }}">Login</a>
             {% endif %}
         </nav>
-        <div class="container-fluid px-5 mb-5">
+        <div class="container-fluid px-5 d-flex flex-column" style="height: 95vh;">
             {% if False %}
             <div>
                 <!-- !messages for debug and session information -->
@@ -74,8 +74,8 @@
         {% block footer_script %}
 
         {% endblock %}
-        <footer class="footer fixed-bottom d-flex justify-content-end">
+        <!-- <footer class="footer fixed-bottom d-flex justify-content-end">
             <div class="align-self-center">&#x00A9; ADBSG - KVS</div>
-        </footer>
+        </footer> -->
     </body>
 </html>
