@@ -40,6 +40,7 @@ Dimming Curve Homepage
 
 
 {% block cont_main %}
+{% include 'flashes.html' %}
 <div>
     <form method="post" action="{{ url_for('dimming.index') }}" enctype="multipart/form-data">
         <div class="row mt-2 p-3 import-file">

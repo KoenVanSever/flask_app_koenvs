@@ -6,25 +6,29 @@
         {% for message in messages %}
         {% if message.0 == "success" %}
         <div class="row my-2 bg-success message-popup py-1">
-            <b>{{ message.1 }}</b>
+            <b>{{ message.1 }} <img class="hide-button" src="{{ url_for('static', filename = 'img/close_button.png' )}}"
+                    style="width: 1rem; height: 1rem;"></b>
         </div> <!-- row -->
         {% endif %}
         <!-- success if -->
         {% if message.0 == "info" %}
         <div class="row my-2 bg-info message-popup py-1">
-            <b>{{ message.1 }}</b>
+            <b>{{ message.1 }} <img class="hide-button" src="{{ url_for('static', filename = 'img/close_button.png' )}}"
+                    style="width: 1rem; height: 1rem;"></b>
         </div> <!-- row -->
         {% endif %}
         <!-- info if -->
         {% if message.0 == "warning" %}
         <div class="row my-2 bg-warning message-popup py-1">
-            <b>{{ message.1 }}</b>
+            <b>{{ message.1 }} <img class="hide-button" src="{{ url_for('static', filename = 'img/close_button.png' )}}"
+                    style="width: 1rem; height: 1rem;"></b>
         </div> <!-- row -->
         {% endif %}
         <!-- warning if -->
         {% if message.0 == "error" %}
         <div class="row my-2 bg-danger message-popup py-1">
-            <b>{{ message.1 }}</b>
+            <b>{{ message.1 }} <img class="hide-button" src="{{ url_for('static', filename = 'img/close_button.png' )}}"
+                    style="width: 1rem; height: 1rem;"></b>
         </div> <!-- row -->
         {% endif %}
         <!-- error if -->
@@ -36,3 +40,9 @@
         <!-- with messages -->
     </div> <!-- col-12 -->
 </div> <!-- flashes -->
+<script>
+    $(".hide-button").on("click", function () {
+        // console.log($(this));
+        $(this).parent().parent().hide();
+    })
+</script>
