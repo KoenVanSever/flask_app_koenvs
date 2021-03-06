@@ -13,5 +13,18 @@
 
 .dim-element {
     border-radius: 0.25rem;
-    background-color: #f8f67c;
+    background-color: #dddddd;
+}
+
+.hide-button {
+    width: 1rem;
+    height: 1rem;
+}
+
+.dim-descr {
+    text-align: left;
+}
+
+.dim-descr:hover {
+    color: white;
 }

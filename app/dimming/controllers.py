@@ -11,6 +11,7 @@ from flask import json
 from .support_functions import *
 import plotly.express as px
 import plotly.io as po
+import os
 
 # used in app/__init__.py
 dimming = Blueprint('dimming', __name__, url_prefix='/dimming')
@@ -63,3 +64,14 @@ def get_curve(name):
     name_data = {"x": list(df.input), "y": list(df.output), "type": "scatter", "name": target.name}
     data = [name_data, lower_data, upper_data]
     return json.dumps(data)
+
+
+@dimming.route("/delete_file/<file>", methods=["POST"])
+@login_required
+def get_list(file):
+    print(file)
+    db_entry = Dimming.query.filter_by(name=file).first()
+    os.remove(db_entry.filename)
+    db.session.delete(db_entry)
+    db.session.commit()
+    return redirect(url_for('dimming.index'))
