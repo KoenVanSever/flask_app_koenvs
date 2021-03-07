@@ -27,21 +27,20 @@ def index():
     if upload_form.validate_on_submit():
         uploaded_info = upload_form.data
         uploaded_file = upload_form.file.data
-        print(uploaded_file.filename)
-        if Dimming.query.filter_by(name=uploaded_info["name"]).first():
-            flash("File '%s': name already taken" % uploaded_info["name"], category="warning")
+
+        basename = uploaded_file.filename
+        target_path = Path(app.config["UPLOAD_FOLDER"], basename).resolve()
+        name = secure_filename(uploaded_info.pop("name")) if uploaded_info["name"] != "" else basename.split(".")[0]
+        color = uploaded_info.pop("color_type", None)
+
+        if Dimming.query.filter_by(name=name).first():
+            print("File '%s': name already taken" % name)
+            flash("File '%s': name already taken" % name, category="warning")
         else:
-            flash("File '%s': added to database" % uploaded_info["name"], category="success")
-            basename = uploaded_file.filename
-            print(uploaded_info)
-            target_path = Path(app.config["UPLOAD_FOLDER"], basename).resolve()
             uploaded_file.save(target_path)
-            name = secure_filename(uploaded_info.pop("name", basename))
-            color = uploaded_info.pop("color_type", None)
-            try:
-                dim = Dimming(filename=str(target_path), name=name, color_type=color)
-            except IntegrityError:
-                flash("File '%s': invalid color type passed to database" % uploaded_info["name"], category="error")
+            dim = Dimming(filename=str(target_path), name=name, color_type=color)
+            print("File '%s': added to database" % name)
+            flash("File '%s': added to database" % name, category="success")
             db.session.add(dim)
             db.session.commit()
 

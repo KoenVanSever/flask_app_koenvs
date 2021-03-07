@@ -1,5 +1,5 @@
 const dimElements = $(".dim-descr");
-const hideButtons = $(".hide-button");
+const hideButtons = $(".delete-button");
 
 dimElements.on("click", function () {
     let path = "get_curve/" + $(this).parent().attr("name");

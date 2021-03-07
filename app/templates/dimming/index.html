@@ -69,7 +69,7 @@ Dimming Curve Homepage
         {% for dim in dimming_list %}
         <div class="dim-element p-1 text-center mb-1 d-flex justify-content-between align-items-center"
             name="{{ dim.name }}">
-            <span class="dim-descr flex-fill ps-2">{{ dim.name }}</span><img class="hide-button"
+            <span class="dim-descr flex-fill ps-2">{{ dim.name }}</span><img class="hide-button delete-button"
                 src="{{ url_for('static', filename = 'img/close_button.png' )}}">
         </div>
         {% endfor %}
