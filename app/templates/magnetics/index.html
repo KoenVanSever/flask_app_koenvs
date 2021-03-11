@@ -1,9 +1,52 @@
+{% macro render_field(field) %}
+<div class="mt-1">
+    <span class="radio-button">{{ field.label }} {{ field }}</span>
+</div>
+{% endmacro %}
+
 {% extends 'base.html' %}
 
 {% block title %}
 Magnetics Homepage
 {% endblock %}
 
-{% block cont_main %}
+{% block meta %}
+<link rel="stylesheet" href="{{ url_for('static', filename = 'css/magnetics.css') }}">
+<script src="{{ url_for('static', filename = 'js/magnetics.js' )}}" defer></script>
+<script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+{% endblock %}
 
+{% block cont_main %}
+<div class="row h-100 my-2">
+    <div class="col-2 selection-bar">
+        <form method="post" id="config-form" action="">
+            {{ form.csrf_token }}
+            <div class="selection-entry mt-2 mb-1">
+                {{ form.material.label }}
+                {{ form.material }}
+            </div>
+            <div class="selection-entry mb-1">
+                {{ form.permeability.label }}
+                {{ form.permeability }}
+            </div>
+            <div class="selection-entry oe-plot mb-1">
+                {{ form.oersted_plot.label }}
+                {{ form.oersted_plot }}
+            </div>
+            <div class="selection-entry excitation mb-1">
+                {{ form.dc_bias.label }}
+                {{ form.dc_bias }}
+                {{ form.num_turns.label }}
+                {{ form.num_turns }}
+                {{ form.path_length.label }}
+                {{ form.path_length }}
+                {{ render_field(form.oersted) }}
+                <span>Value:</span> <span id="calculated-excitation"></span> <span id="selected-unit"></span>
+            </div>
+        </form>
+    </div>
+    <div class="col-10" id="graph-area">
+
+    </div>
+</div>
 {% endblock %}

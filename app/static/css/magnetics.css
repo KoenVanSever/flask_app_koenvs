@@ -1,0 +1,25 @@
+.selection-bar {
+    border-radius: 1.5rem;
+    background-color: #9e9d9d;
+}
+
+.selection-entry {
+    padding: 1rem;
+    border-radius: 1.5rem;
+    background-color: #5f5f5f;
+}
+
+.selection-entry > label { display: block; color: white; }
+.selection-entry > select { display: block; width: 100%; }
+.selection-entry > input[type="text"] { width: 100%; }
+.selection-entry > span { color: white; }
+#calculated-excitation { color: red; }
+
+.radio-button label { color:white; }
+.radio-button ul, li {
+    display: inline;
+    margin-left: 0.2rem;
+    margin-right: 0.2rem;
+    margin-bottom: 0rem;
+    color: white;
+}
